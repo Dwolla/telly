@@ -17,7 +17,7 @@ provider:
     Team: growth
     Visibility: internal
   environment:
-    NOTIFY_QUEUE: !Ref NotifyHandlerQueue
+    NOTIFY_QUEUE: !Ref TellyNotifyHandlerQueue
     ENVIRONMENT: ${opt:stage}
   iamRoleStatements:
     - Effect: 'Allow'
@@ -25,7 +25,7 @@ provider:
         - "sqs:SendMessage"
         - "sqs:GetQueueUrl"
       Resource:
-        - !GetAtt NotifyHandlerQueue.Arn
+        - !GetAtt TellyNotifyHandlerQueue.Arn
     - Effect: "Allow"
       Action:
         - kms:Decrypt
@@ -54,14 +54,14 @@ functions:
       - sqs: 
           arn:
             Fn::GetAtt:
-              - NotifyHandlerQueue
+              - TellyNotifyHandlerQueue
               - Arn
 
 resources:
   Description: Lambda functions for interfacing with Slack
   Resources:
-    NotifyHandlerQueue:
+    TellyNotifyHandlerQueue:
       Type: "AWS::SQS::Queue"
       Properties:
-        QueueName: "NotifyHandlerQueue.fifo"
+        QueueName: "${opt:stage}-TellyNotifyHandlerQueue.fifo"
         FifoQueue: True
