@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "encrypt-channel": "aws --region us-west-2 kms encrypt --profile DataEncrypter --key-id alias/JenkinsDeployCredentialsKey --plaintext $URL --output text --query CiphertextBlob",
+    "precommit-msg": "echo '\n\nverifying channels.json encryption...' && exit 0",
+    "channel-verify": "node checkEncrypted.js"
+  },
+  "pre-commit": [
+    "precommit-msg",
+    "channel-verify"
+  ],
+  "dependencies": {
+    "aws-sdk": "^2.634.0",
+    "axios": "^0.19.2",
+    "uuid": "^7.0.2"
+  },
+  "devDependencies": {
+    "pre-commit": "^1.2.2"
+  }
+}

@@ -1,0 +1,40 @@
+stages:
+  build:
+    nodeLabel: nvm
+    steps:
+      - |
+        . ${NVM_DIR}/nvm.sh --no-use
+        nvm install
+        npm install -g npm
+        npm install -g serverless
+        npm test
+        serverless package -v \
+          --account 455620323323 \
+          --bucket dwolla-code \
+          --stage dev
+    filesToStash:
+      - '**'
+  deployDevInt:
+    nodeLabel: nvm-deployer
+    steps:
+      - |
+        . ${NVM_DIR}/nvm.sh --no-use
+        nvm install
+        npm install -g npm
+        npm install -g serverless
+        serverless deploy -v \
+          --account 455620323323 \
+          --bucket dwolla-code \
+          --stage dev
+  deployProd:
+    nodeLabel: nvm-deployer
+    steps:
+      - |
+        . ${NVM_DIR}/nvm.sh --no-use
+        nvm install
+        npm install -g npm
+        npm install -g serverless
+        serverless deploy -v \
+          --account 455620323323 \
+          --bucket dwolla-code \
+          --stage prod
