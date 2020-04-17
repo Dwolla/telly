@@ -96,3 +96,9 @@ resources:
                 - 'kms:ReEncrypt*'
                 - 'kms:DescribeKey'
               Resource: '*'
+    EncryptionKeyAlias:
+      Type: AWS::KMS::Alias
+      Properties:
+        AliasName: alias/${self:service}-${opt:stage}-key
+        TargetKeyId:
+          Ref: EncryptionKey
