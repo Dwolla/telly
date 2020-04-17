@@ -1,7 +1,6 @@
 'use strict';
 const env = process.env['ENVIRONMENT'];
 
-const { v4: uuidv4 } = require('uuid');
 var AWS = require('aws-sdk');
 AWS.config.update({ region: 'us-west-2' });
 const queue = process.env['NOTIFY_QUEUE'];
@@ -15,8 +14,6 @@ module.exports.send = async notification => {
     var params = {
         MessageAttributes: attributes,
         MessageBody: notification.message,
-        MessageDeduplicationId: uuidv4(),
-        MessageGroupId: "something_goes_here",
         QueueUrl: queue
     };
 
