@@ -18,8 +18,9 @@ module.exports.handler = async event => {
     console.log(service);
     console.log(link);
 
-    var url = await kms.decrypt(channels[channel]);
-    console.log(url);
+    var url_ending = await kms.decrypt(channels[channel]);
+    console.log(url_ending);
+    let url = `https://hooks.slack.com/services/${url_ending}`
 
     let body = attributes.Link ? buildMessageWithLink(message.body, service, link) : buildMessageNoLink(message.body, service);
 
