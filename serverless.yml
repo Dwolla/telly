@@ -29,7 +29,8 @@ provider:
     - Effect: "Allow"
       Action:
         - kms:Decrypt
-      Resource: "*"
+      Resource:
+        Fn::GetAtt: [EncryptionKey, Arn]
 
 functions:
   webhook:
@@ -64,3 +65,34 @@ resources:
       Type: "AWS::SQS::Queue"
       Properties:
         QueueName: "${opt:stage}-TellyNotifyHandlerQueue"
+    EncryptionKey:
+      Type: AWS::KMS::Key
+      Properties:
+        KeyPolicy:
+          Version: '2012-10-17'
+          Statement:
+            - Sid: 'Allow root access'
+              Effect: 'Allow'
+              Principal:
+                AWS:
+                  !Join
+                  - ''
+                  - - "arn:aws:iam::"
+                    - !Ref 'AWS::AccountId'
+                    - ":root"
+              Action: 'kms:*'
+              Resource: '*'
+            - Sid: 'Allow DataEncrypter to encrypt'
+              Effect: 'Allow'
+              Principal:
+                AWS:
+                  !Join
+                  - ''
+                  - - "arn:aws:iam::"
+                    - !Ref 'AWS::AccountId'
+                    - ":role/DataEncrypter"
+              Action:
+                - 'kms:Encrypt'
+                - 'kms:ReEncrypt*'
+                - 'kms:DescribeKey'
+              Resource: '*'
