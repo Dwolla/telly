@@ -63,5 +63,4 @@ resources:
     TellyNotifyHandlerQueue:
       Type: "AWS::SQS::Queue"
       Properties:
-        QueueName: "${opt:stage}-TellyNotifyHandlerQueue.fifo"
-        FifoQueue: True
+        QueueName: "${opt:stage}-TellyNotifyHandlerQueue"
