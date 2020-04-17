@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "encrypt-channel": "aws --region us-west-2 kms encrypt --profile DataEncrypter --key-id alias/JenkinsDeployCredentialsKey --plaintext $URL --output text --query CiphertextBlob",
+    "encrypt-channel": "aws --region us-west-2 kms encrypt --profile DataEncrypter --key-id alias/telly-dev-key --plaintext $URL --output text --query CiphertextBlob",
     "precommit-msg": "echo '\n\nverifying channels.json encryption...' && exit 0",
     "channel-verify": "node checkEncrypted.js"
   },
