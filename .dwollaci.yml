@@ -8,6 +8,7 @@ stages:
         npm install -g npm
         npm install -g serverless
         npm test
+        npm install
         serverless package -v \
           --account 455620323323 \
           --bucket dwolla-code \
@@ -22,6 +23,7 @@ stages:
         nvm install
         npm install -g npm
         npm install -g serverless
+        npm install
         serverless deploy -v \
           --account 455620323323 \
           --bucket dwolla-code \
@@ -34,6 +36,7 @@ stages:
         nvm install
         npm install -g npm
         npm install -g serverless
+        npm install
         serverless deploy -v \
           --account 455620323323 \
           --bucket dwolla-code \
