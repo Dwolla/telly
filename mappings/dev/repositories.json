@@ -1,3 +1,5 @@
 {
-    "cards-service": "cards-alerts"
+    "cards-service": "cards-alerts",
+    "dwolla-cards-js": "cards-alerts",
+    "fake-finix": "cards-alerts"
 }
