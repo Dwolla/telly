@@ -9,7 +9,7 @@
     "channel-verify"
   ],
   "dependencies": {
-    "aws-sdk": "^2.634.0",
+    "aws-sdk": "^2.915.0",
     "axios": "^0.19.2"
   },
   "devDependencies": {
